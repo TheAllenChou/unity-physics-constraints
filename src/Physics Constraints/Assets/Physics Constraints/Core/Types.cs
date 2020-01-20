@@ -11,7 +11,7 @@
 
 using UnityEngine;
 
-namespace PhysicsConstriants
+namespace PhysicsConstraints
 {
   public struct InertiaTensor
   {

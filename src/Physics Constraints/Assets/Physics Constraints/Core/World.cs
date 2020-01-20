@@ -12,11 +12,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PhysicsConstriants
+namespace PhysicsConstraints
 {
   public class World : MonoBehaviour
   {
-    private static readonly int Iterations = 100;
+    private static int s_velocityIterations = 10;
+    public static int VelocityIterations
+    {
+      get { return s_velocityIterations; }
+      set { s_velocityIterations = Mathf.Max(1, value); }
+    }
+
+    public static Vector3 Gravity = Vector3.zero;
 
     private static HashSet<Constraint> s_constraints;
     public static void Register(Constraint c)
@@ -68,7 +75,7 @@ namespace PhysicsConstriants
         constraint.InitVelocityConstraint(dt);
       }
 
-      for (int i = 0; i < Iterations; ++i)
+      for (int i = 0; i < s_velocityIterations; ++i)
       {
         foreach (var constraint in s_constraints)
         {

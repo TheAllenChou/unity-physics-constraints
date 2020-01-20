@@ -9,12 +9,19 @@
 */
 /******************************************************************************/
 
-namespace PhysicsConstriants
+using UnityEngine;
+
+namespace PhysicsConstraints
 {
-  public interface Constraint
+  [RequireComponent(typeof(Body))]
+  public class MouseConstraint : PointConstraintBase
   {
-    void InitVelocityConstraint(float dt);
-    void SolveVelocityConstraint(float dt);
+    public Transform Anchor;
+
+    protected override Vector3 GetAnchor()
+    {
+      // TODO
+      return transform.position;
+    }
   }
 }
-

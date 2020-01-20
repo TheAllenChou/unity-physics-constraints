@@ -12,7 +12,7 @@
 using CjLib;
 using UnityEngine;
 
-namespace PhysicsConstriants
+namespace PhysicsConstraints
 {
   public class Body : MonoBehaviour
   {

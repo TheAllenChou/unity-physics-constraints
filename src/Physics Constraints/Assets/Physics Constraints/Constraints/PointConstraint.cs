@@ -11,7 +11,19 @@
 
 using UnityEngine;
 
-public class OneDConstraintMain : MonoBehaviour
+namespace PhysicsConstraints
 {
-  
+  [RequireComponent(typeof(Body))]
+  public class PointConstraint : PointConstraintBase
+  {
+    public Transform Anchor;
+
+    protected override Vector3 GetAnchor()
+    {
+      return 
+        (Anchor != null)
+          ? Anchor.position 
+          : transform.position;
+    }
+  }
 }
