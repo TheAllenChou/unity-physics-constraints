@@ -33,7 +33,9 @@ namespace PhysicsConstraints
     }
     public static void Unregister(Constraint c)
     {
-      ValidateWorld();
+      if (s_constraints == null)
+        return;
+
       s_constraints.Remove(c);
     }
 
@@ -45,13 +47,16 @@ namespace PhysicsConstraints
     }
     public static void Unregister(Body b)
     {
-      ValidateWorld();
+      if (s_bodies == null)
+        return;
+
       s_bodies.Remove(b);
     }
 
     private static GameObject s_world;
     private static void ValidateWorld()
     {
+      
       if (s_world != null)
         return;
 
@@ -64,12 +69,24 @@ namespace PhysicsConstraints
 
     private void FixedUpdate()
     {
+      if (s_world != gameObject)
+      {
+        Destroy(gameObject);
+        return;
+      }
+
       float dt = Mathf.Max(ConstraintUtil.Epsilon, Time.fixedDeltaTime);
       Step(Time.fixedDeltaTime);
     }
 
     public static void Step(float dt)
     {
+      Vector3 gravityImpulse = Gravity * dt;
+      foreach (var body in s_bodies)
+      {
+        body.LinearVelocity += gravityImpulse;
+      }
+
       foreach (var constraint in s_constraints)
       {
         constraint.InitVelocityConstraint(dt);
