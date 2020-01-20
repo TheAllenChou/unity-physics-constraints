@@ -13,7 +13,8 @@ namespace PhysicsConstriants
 {
   public interface Constraint
   {
-    void Solve(float dt);
+    void InitVelocityConstraint(float dt);
+    void SolveVelocityConstraint(float dt);
   }
 }
 

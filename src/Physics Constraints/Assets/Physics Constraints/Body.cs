@@ -16,6 +16,7 @@ namespace PhysicsConstriants
 {
   public class Body : MonoBehaviour
   {
+    // mass
     private float m_mass;
     private float m_inverseMass;
     public float Mass
@@ -37,6 +38,7 @@ namespace PhysicsConstriants
       }
     }
 
+    // inertia tensor
     public InertiaTensor m_inertia;
     public InertiaTensor m_inverseInertia;
     public InertiaTensor Inertia
@@ -53,7 +55,10 @@ namespace PhysicsConstriants
       get { return m_inverseInertia; }
     }
 
+    // center of mass
+    [HideInInspector]
     public Vector3 m_centerOfMassLs;
+    [HideInInspector]
     public Vector3 CenterOfMassLs
     {
       get { return m_centerOfMassLs; }
@@ -64,11 +69,32 @@ namespace PhysicsConstriants
       get { return transform.TransformPoint(m_centerOfMassLs); }
     }
 
+    // velocity
+    [HideInInspector]
     public Vector3 LinearVelocity;
+    [HideInInspector]
     public Vector3 AngularVelocity;
 
+    // transform
     public bool LockPosition = false;
     public bool LockRotation = false;
+
+    public Body()
+    {
+      Mass = 1.0f;
+      Inertia = InertiaTensor.Identity;
+      CenterOfMassLs = Vector3.zero;
+    }
+
+    private void OnEnable()
+    {
+      World.Register(this);
+    }
+
+    private void OnDisable()
+    {
+      World.Unregister(this);
+    }
 
     public void ApplyImpulse(Vector3 impulse, Vector3 atWs)
     {
@@ -98,9 +124,7 @@ namespace PhysicsConstriants
     {
       if (!LockPosition)
       {
-        Vector3 position = transform.position;
-        position += LinearVelocity * dt;
-        transform.position = position;
+        transform.position += LinearVelocity * dt;;
       }
 
       if (!LockRotation)

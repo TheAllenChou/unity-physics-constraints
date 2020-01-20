@@ -29,7 +29,6 @@ namespace CjLib
     public static readonly float Sqrt3    = Mathf.Sqrt(3.0f);
     public static readonly float Sqrt3Inv = 1.0f / Mathf.Sqrt(3.0f);
 
-
     public static readonly float Epsilon = 1.0e-9f;
     public static readonly float EpsilonComp = 1.0f - Epsilon;
     public static readonly float Rad2Deg = 180.0f / Mathf.PI;
