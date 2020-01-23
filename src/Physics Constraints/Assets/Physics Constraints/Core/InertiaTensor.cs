@@ -150,5 +150,37 @@ namespace PhysicsConstraints
           (i.I00 * i.I11 - i.I10 * i.I01) * detInv
         );
     }
+
+
+    // common inertia tensors
+    // https://en.wikipedia.org/wiki/List_of_moments_of_inertia
+    //-------------------------------------------------------------------------
+
+    public static InertiaTensor Sphere(float mass, float radius)
+    {
+      float i = (2.0f / 5.0f) * mass * radius * radius;
+      return 
+        new InertiaTensor
+        (
+          i, 0.0f, 0.0f, 
+          0.0f, i, 0.0f, 
+          0.0f, 0.0f, i
+        );
+    }
+
+    public static InertiaTensor Box(float mass, Vector3 dimensions)
+    {
+      float oneTwelfth = 1.0f / 12.0f;
+      float xx = dimensions.x * dimensions.x;
+      float yy = dimensions.y * dimensions.y;
+      float zz = dimensions.z * dimensions.z;
+      return 
+        new InertiaTensor
+        (
+          oneTwelfth * mass * (yy + zz), 0.0f, 0.0f, 
+          0.0f, oneTwelfth * mass * (xx + zz), 0.0f, 
+          0.0f, 0.0f, oneTwelfth * mass * (xx + yy)
+        );
+    }
   }
 }
