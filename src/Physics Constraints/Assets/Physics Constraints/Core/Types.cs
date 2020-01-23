@@ -164,5 +164,35 @@ namespace PhysicsConstraints
     {
       return Vector3.Dot(Mul(a, i), b);
     }
+
+    public static InertiaTensor Inverse(InertiaTensor i)
+    {
+      // too lazy to optimize
+      // help, compiler
+      float det = 
+          i.I00 * i.I11 * i.I22 
+        + i.I01 * i.I12 * i.I20 
+        + i.I10 * i.I21 * i.I02 
+        - i.I02 * i.I11 * i.I20 
+        - i.I01 * i.I10 * i.I22 
+        - i.I12 * i.I21 * i.I00;
+
+      // I trust that this inertia tensor is well-constructed
+      float detInv = 1.0f / det;
+
+      return 
+        new InertiaTensor
+        (
+          (i.I11 * i.I22 - i.I21 * i.I12) * detInv, 
+          (i.I12 * i.I20 - i.I10 * i.I22) * detInv, 
+          (i.I10 * i.I21 - i.I20 * i.I11) * detInv, 
+          (i.I02 * i.I21 - i.I01 * i.I22) * detInv, 
+          (i.I00 * i.I22 - i.I02 * i.I20) * detInv, 
+          (i.I20 * i.I01 - i.I00 * i.I21) * detInv, 
+          (i.I01 * i.I12 - i.I02 * i.I11) * detInv, 
+          (i.I10 * i.I02 - i.I00 * i.I12) * detInv, 
+          (i.I00 * i.I11 - i.I10 * i.I01) * detInv
+        );
+    }
   }
 }
