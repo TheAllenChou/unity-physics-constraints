@@ -116,7 +116,7 @@ namespace PhysicsConstraints
         Vector3 atLs = transform.InverseTransformPoint(atWs);
         Vector3 r = atLs - CenterOfMassLs;
         Vector3 angularImpulse = Vector3.Cross(r, impulse);
-        AngularVelocity += InverseInertia * angularImpulse;
+        AngularVelocity += InertiaTensor.Mul(InverseInertia, angularImpulse);
       }
     }
 
