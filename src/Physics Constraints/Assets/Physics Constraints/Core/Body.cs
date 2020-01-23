@@ -39,9 +39,9 @@ namespace PhysicsConstraints
     }
 
     // inertia tensor
-    public InertiaTensor m_inertia;
-    public InertiaTensor m_inverseInertia;
-    public InertiaTensor Inertia
+    public Matrix3x3 m_inertia;
+    public Matrix3x3 m_inverseInertia;
+    public Matrix3x3 Inertia
     {
       get { return m_inertia; }
       set
@@ -50,7 +50,7 @@ namespace PhysicsConstraints
         m_inverseInertia = value; // TODO
       }
     }
-    public InertiaTensor InverseInertia
+    public Matrix3x3 InverseInertia
     {
       get { return m_inverseInertia; }
     }
@@ -82,7 +82,7 @@ namespace PhysicsConstraints
     public Body()
     {
       Mass = 1.0f;
-      Inertia = InertiaTensor.Identity;
+      Inertia = Matrix3x3.Identity;
       CenterOfMassLs = Vector3.zero;
     }
 
@@ -116,7 +116,7 @@ namespace PhysicsConstraints
         Vector3 atLs = transform.InverseTransformPoint(atWs);
         Vector3 r = atLs - CenterOfMassLs;
         Vector3 angularImpulse = Vector3.Cross(r, impulse);
-        AngularVelocity += InertiaTensor.Mul(InverseInertia, angularImpulse);
+        AngularVelocity += Matrix3x3.Mul(InverseInertia, angularImpulse);
       }
     }
 

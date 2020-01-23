@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace PhysicsConstraints
 {
-  public struct InertiaTensor
+  public struct Matrix3x3
   {
     public float I00;
     public float I01;
@@ -56,10 +56,10 @@ namespace PhysicsConstraints
       set { I02 = value.x; I12 = value.y; I22 = value.z; }
     }
 
-    public static InertiaTensor FromRows(Vector3 row0, Vector3 row1, Vector3 row2)
+    public static Matrix3x3 FromRows(Vector3 row0, Vector3 row1, Vector3 row2)
     {
       return 
-        new InertiaTensor
+        new Matrix3x3
         (
           row0.x, row0.y, row0.z, 
           row1.x, row1.y, row1.z, 
@@ -67,10 +67,10 @@ namespace PhysicsConstraints
         );
     }
 
-    public static InertiaTensor FromCols(Vector3 col0, Vector3 col1, Vector3 col2)
+    public static Matrix3x3 FromCols(Vector3 col0, Vector3 col1, Vector3 col2)
     {
       return 
-        new InertiaTensor
+        new Matrix3x3
         (
           col0.x, col1.x, col2.x, 
           col0.y, col1.y, col2.y, 
@@ -78,23 +78,23 @@ namespace PhysicsConstraints
         );
     }
 
-    public InertiaTensor(float i00, float i01, float i02, float i10, float i11, float i12, float i20, float i21, float i22)
+    public Matrix3x3(float i00, float i01, float i02, float i10, float i11, float i12, float i20, float i21, float i22)
     {
       I00 = i00; I01 = i01; I02 = i02;
       I10 = i10; I11 = i11; I12 = i12;
       I20 = i20; I21 = i21; I22 = i22;
     }
 
-    private static readonly InertiaTensor kIdentity = 
-      new InertiaTensor
+    private static readonly Matrix3x3 kIdentity = 
+      new Matrix3x3
       (
         1.0f, 0.0f, 0.0f, 
         0.0f, 1.0f, 0.0f, 
         0.0f, 0.0f, 1.0f
       );
-    public static InertiaTensor Identity { get { return kIdentity; } }
+    public static Matrix3x3 Identity { get { return kIdentity; } }
 
-    public static Vector3 Mul(InertiaTensor i, Vector3 v)
+    public static Vector3 Mul(Matrix3x3 i, Vector3 v)
     {
       return 
         new Vector3
@@ -105,7 +105,7 @@ namespace PhysicsConstraints
         );
     }
 
-    public static Vector3 Mul(Vector3 v, InertiaTensor i)
+    public static Vector3 Mul(Vector3 v, Matrix3x3 i)
     {
       return 
         new Vector3
@@ -116,12 +116,12 @@ namespace PhysicsConstraints
         );
     }
 
-    public static float Mul(Vector3 a, InertiaTensor i, Vector3 b)
+    public static float Mul(Vector3 a, Matrix3x3 i, Vector3 b)
     {
       return Vector3.Dot(Mul(a, i), b);
     }
 
-    public static InertiaTensor Inverse(InertiaTensor i)
+    public static Matrix3x3 Inverse(Matrix3x3 i)
     {
       // too lazy to optimize
       // help, compiler
@@ -137,7 +137,7 @@ namespace PhysicsConstraints
       float detInv = 1.0f / det;
 
       return 
-        new InertiaTensor
+        new Matrix3x3
         (
           (i.I11 * i.I22 - i.I21 * i.I12) * detInv, 
           (i.I12 * i.I20 - i.I10 * i.I22) * detInv, 
@@ -148,38 +148,6 @@ namespace PhysicsConstraints
           (i.I01 * i.I12 - i.I02 * i.I11) * detInv, 
           (i.I10 * i.I02 - i.I00 * i.I12) * detInv, 
           (i.I00 * i.I11 - i.I10 * i.I01) * detInv
-        );
-    }
-
-
-    // common inertia tensors
-    // https://en.wikipedia.org/wiki/List_of_moments_of_inertia
-    //-------------------------------------------------------------------------
-
-    public static InertiaTensor Sphere(float mass, float radius)
-    {
-      float i = (2.0f / 5.0f) * mass * radius * radius;
-      return 
-        new InertiaTensor
-        (
-          i, 0.0f, 0.0f, 
-          0.0f, i, 0.0f, 
-          0.0f, 0.0f, i
-        );
-    }
-
-    public static InertiaTensor Box(float mass, Vector3 dimensions)
-    {
-      float oneTwelfth = 1.0f / 12.0f;
-      float xx = dimensions.x * dimensions.x;
-      float yy = dimensions.y * dimensions.y;
-      float zz = dimensions.z * dimensions.z;
-      return 
-        new InertiaTensor
-        (
-          oneTwelfth * mass * (yy + zz), 0.0f, 0.0f, 
-          0.0f, oneTwelfth * mass * (xx + zz), 0.0f, 
-          0.0f, 0.0f, oneTwelfth * mass * (xx + yy)
         );
     }
   }

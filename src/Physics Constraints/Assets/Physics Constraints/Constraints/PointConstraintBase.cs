@@ -16,7 +16,7 @@ namespace PhysicsConstraints
   [RequireComponent(typeof(Body))]
   public abstract class PointConstraintBase : MonoBehaviour, Constraint
   {
-    public ConstraintParams ConstraintParams;
+    public ConstraintParams ConstraintParams = new ConstraintParams();
 
     protected abstract Vector3 GetAnchor();
 
