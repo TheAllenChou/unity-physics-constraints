@@ -11,7 +11,7 @@
 
 using UnityEngine;
 
-public class SimpleGroundConstraintMain : MonoBehaviour
+public class InlineGroundConstraintMain : MonoBehaviour
 {
   public float Gravity = -9.8f;
   public float Beta = 0.2f;

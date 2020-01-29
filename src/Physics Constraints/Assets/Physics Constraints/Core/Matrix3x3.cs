@@ -85,6 +85,9 @@ namespace PhysicsConstraints
       I20 = i20; I21 = i21; I22 = i22;
     }
 
+    public Matrix3x3 Inverted { get { return Inverse(this); } }
+    public Matrix3x3 Transposed { get { return Transpose(this); } }
+
     private static readonly Matrix3x3 kIdentity = 
       new Matrix3x3
       (
@@ -94,44 +97,97 @@ namespace PhysicsConstraints
       );
     public static Matrix3x3 Identity { get { return kIdentity; } }
 
-    public static Vector3 Mul(Matrix3x3 i, Vector3 v)
+    public static Matrix3x3 PreCross(Vector3 lhs)
+    {
+      return
+        new Matrix3x3
+        (
+            0.0f, -lhs.z,  lhs.y, 
+           lhs.z,   0.0f, -lhs.x, 
+          -lhs.y,  lhs.x,   0.0f
+        );
+    }
+
+    public static Matrix3x3 PostCross(Vector3 rhs)
+    {
+      return
+        new Matrix3x3
+        (
+             0.0f,  rhs.z, -rhs.y, 
+           -rhs.z,   0.0f,  rhs.x, 
+            rhs.y, -rhs.x,   0.0f
+        );
+    }
+
+    public static Matrix3x3 operator +(Matrix3x3 a, Matrix3x3 b)
+    {
+      return FromRows(a.Row0 + b.Row0, a.Row1 + b.Row1, a.Row2 + b.Row2);
+    }
+
+    public static Matrix3x3 operator -(Matrix3x3 a, Matrix3x3 b)
+    {
+      return FromRows(a.Row0 - b.Row0, a.Row1 - b.Row1, a.Row2 - b.Row2);
+    }
+
+    public static Matrix3x3 operator *(float s, Matrix3x3 m)
+    {
+      return FromRows(s * m.Row0, s * m.Row1, s * m.Row2);
+    }
+
+    public static Matrix3x3 operator *(Matrix3x3 m, float s)
+    {
+      return s * m;
+    }
+
+    public static Vector3 operator *(Matrix3x3 m, Vector3 v)
     {
       return 
         new Vector3
         (
-          Vector3.Dot(i.Row0, v), 
-          Vector3.Dot(i.Row1, v), 
-          Vector3.Dot(i.Row2, v)
+          Vector3.Dot(m.Row0, v), 
+          Vector3.Dot(m.Row1, v), 
+          Vector3.Dot(m.Row2, v)
         );
     }
 
-    public static Vector3 Mul(Vector3 v, Matrix3x3 i)
+    public static Vector3 operator *(Vector3 v, Matrix3x3 m)
     {
       return 
         new Vector3
         (
-          Vector3.Dot(v, i.Col0), 
-          Vector3.Dot(v, i.Col1), 
-          Vector3.Dot(v, i.Col2)
+          Vector3.Dot(v, m.Col0), 
+          Vector3.Dot(v, m.Col1), 
+          Vector3.Dot(v, m.Col2)
         );
     }
 
-    public static float Mul(Vector3 a, Matrix3x3 i, Vector3 b)
+    public static Matrix3x3 operator *(Matrix3x3 a, Matrix3x3 b)
     {
-      return Vector3.Dot(Mul(a, i), b);
+      return
+        FromCols
+        (
+          a * b.Col0, 
+          a * b.Col1, 
+          a * b.Col2
+        );
     }
 
-    public static Matrix3x3 Inverse(Matrix3x3 i)
+    public static float Mul(Vector3 a, Matrix3x3 m, Vector3 b)
+    {
+      return Vector3.Dot(a * m, b);
+    }
+
+    public static Matrix3x3 Inverse(Matrix3x3 m)
     {
       // too lazy to optimize
       // help, compiler
       float det = 
-          i.I00 * i.I11 * i.I22 
-        + i.I01 * i.I12 * i.I20 
-        + i.I10 * i.I21 * i.I02 
-        - i.I02 * i.I11 * i.I20 
-        - i.I01 * i.I10 * i.I22 
-        - i.I12 * i.I21 * i.I00;
+          m.I00 * m.I11 * m.I22 
+        + m.I01 * m.I12 * m.I20 
+        + m.I10 * m.I21 * m.I02 
+        - m.I02 * m.I11 * m.I20 
+        - m.I01 * m.I10 * m.I22 
+        - m.I12 * m.I21 * m.I00;
 
       // I trust that this inertia tensor is well-constructed
       float detInv = 1.0f / det;
@@ -139,15 +195,26 @@ namespace PhysicsConstraints
       return 
         new Matrix3x3
         (
-          (i.I11 * i.I22 - i.I21 * i.I12) * detInv, 
-          (i.I12 * i.I20 - i.I10 * i.I22) * detInv, 
-          (i.I10 * i.I21 - i.I20 * i.I11) * detInv, 
-          (i.I02 * i.I21 - i.I01 * i.I22) * detInv, 
-          (i.I00 * i.I22 - i.I02 * i.I20) * detInv, 
-          (i.I20 * i.I01 - i.I00 * i.I21) * detInv, 
-          (i.I01 * i.I12 - i.I02 * i.I11) * detInv, 
-          (i.I10 * i.I02 - i.I00 * i.I12) * detInv, 
-          (i.I00 * i.I11 - i.I10 * i.I01) * detInv
+          (m.I11 * m.I22 - m.I21 * m.I12) * detInv, 
+          (m.I12 * m.I20 - m.I10 * m.I22) * detInv, 
+          (m.I10 * m.I21 - m.I20 * m.I11) * detInv, 
+          (m.I02 * m.I21 - m.I01 * m.I22) * detInv, 
+          (m.I00 * m.I22 - m.I02 * m.I20) * detInv, 
+          (m.I20 * m.I01 - m.I00 * m.I21) * detInv, 
+          (m.I01 * m.I12 - m.I02 * m.I11) * detInv, 
+          (m.I10 * m.I02 - m.I00 * m.I12) * detInv, 
+          (m.I00 * m.I11 - m.I10 * m.I01) * detInv
+        );
+    }
+
+    public static Matrix3x3 Transpose(Matrix3x3 m)
+    {
+      return
+        new Matrix3x3
+        (
+          m.I00, m.I10, m.I20, 
+          m.I01, m.I11, m.I21, 
+          m.I02, m.I12, m.I22
         );
     }
   }
