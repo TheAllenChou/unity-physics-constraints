@@ -129,10 +129,8 @@ namespace PhysicsConstraints
 
       if (!LockRotation)
       {
-        Quaternion rotation = transform.rotation;
-        Vector3 rotationVec = QuaternionUtil.GetAngle(rotation) * QuaternionUtil.GetAxis(rotation);
-        rotationVec += AngularVelocity * dt;
-        transform.rotation = QuaternionUtil.AxisAngle(VectorUtil.NormalizeSafe(rotationVec, Vector3.zero), rotationVec.magnitude);
+        Quaternion q = QuaternionUtil.AxisAngle(VectorUtil.NormalizeSafe(AngularVelocity, Vector3.forward), AngularVelocity.magnitude * dt);
+        transform.rotation = q * transform.rotation;
       }
     }
   }

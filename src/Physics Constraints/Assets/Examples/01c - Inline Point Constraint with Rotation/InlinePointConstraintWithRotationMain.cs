@@ -37,7 +37,7 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
     mass = 1.0f;
     massInv = 1.0f / mass;
 
-    inertia = Inertia.SolidBox(mass, 0.5f * Vector3.one);
+    inertia = Inertia.SolidBox(mass, 1.0f * Vector3.one);
     inertiaInv = inertia.Inverted;
 
     rLocal = 0.5f * Vector3.one;
@@ -78,8 +78,7 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
     Vector3 pos = Box.transform.position;
     pos += v * dt;
     Box.transform.position = pos;
-    Vector3 rot = QuaternionUtil.GetAngle(Box.transform.rotation) * QuaternionUtil.GetAxis(Box.transform.rotation);
-    rot += a * dt;
-    Box.transform.rotation = QuaternionUtil.AxisAngle(VectorUtil.NormalizeSafe(rot, Vector3.zero), rot.magnitude);
+    Quaternion q = QuaternionUtil.AxisAngle(VectorUtil.NormalizeSafe(a, Vector3.forward), a.magnitude * dt);
+    Box.transform.rotation = q * Box.transform.rotation;
   }
 }

@@ -11,17 +11,12 @@
 
 using UnityEngine;
 
-namespace PhysicsConstraints
-{
-  [RequireComponent(typeof(Body))]
-  public class MouseConstraint : PointConstraintBase
-  {
-    public Transform Anchor;
+using PhysicsConstraints;
 
-    protected override Vector3 GetTarget()
-    {
-      // TODO
-      return transform.position;
-    }
+public class SystemicGroundConstraintMain : MonoBehaviour
+{
+  private void Start()
+  {
+    World.Gravity = 9.8f * Vector3.down;
   }
 }

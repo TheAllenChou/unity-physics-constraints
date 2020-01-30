@@ -13,7 +13,7 @@ using UnityEngine;
 
 using PhysicsConstraints;
 
-public class GroundConstraintMain : MonoBehaviour
+public class SystemicPointConstraintWithRotationMain : MonoBehaviour
 {
   private void Start()
   {

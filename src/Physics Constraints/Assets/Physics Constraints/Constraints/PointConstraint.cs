@@ -16,14 +16,20 @@ namespace PhysicsConstraints
   [RequireComponent(typeof(Body))]
   public class PointConstraint : PointConstraintBase
   {
-    public Transform Anchor;
+    public Transform Target;
+    public Vector3 LocalAnchor;
 
-    protected override Vector3 GetAnchor()
+    protected override Vector3 GetTarget()
     {
       return 
-        (Anchor != null)
-          ? Anchor.position 
+        (Target != null)
+          ? Target.position 
           : transform.position;
+    }
+
+    protected override Vector3 GetLocalAnchor()
+    {
+      return LocalAnchor;
     }
   }
 }

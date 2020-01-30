@@ -17,11 +17,14 @@ namespace PhysicsConstraints
   public abstract class PointConstraintBase : MonoBehaviour, Constraint
   {
     public ConstraintParams ConstraintParams = new ConstraintParams();
+    public bool EnableRotation = false;
 
-    protected abstract Vector3 GetAnchor();
+    protected abstract Vector3 GetTarget();
+    protected virtual Vector3 GetLocalAnchor() { return Vector3.zero; }
 
-    private Vector3 m_impulse;
-    private float m_effectiveMass;
+    private Vector3 m_lambda;
+    private Matrix3x3 m_effectiveMass;
+    private Matrix3x3 m_cross;
     private float m_gamma;
     private Vector3 m_bias;
 
@@ -42,25 +45,37 @@ namespace PhysicsConstraints
       float beta;
       ConstraintUtil.VelocityConstraintBias(body.Mass, ConstraintParams, dt, out beta, out m_gamma);
 
-      Vector3 anchor = GetAnchor();
-      Vector3 cPos = transform.position - anchor;
+      Vector3 r = transform.rotation * GetLocalAnchor();
+
+      Vector3 cPos = (transform.position + r) - GetTarget();
+      Vector3 cVel = body.LinearVelocity + Vector3.Cross(body.AngularVelocity, r);
+
+      m_cross = Matrix3x3.PostCross(r);
+      Matrix3x3 k = body.InverseMass * Matrix3x3.Identity;
+      if (EnableRotation)
+        k += m_cross * body.InverseInertia * m_cross.Transposed;
+
+      k += m_gamma * Matrix3x3.Identity;
+
       m_bias = beta * cPos;
-      m_effectiveMass = 1.0f / (body.InverseMass + m_gamma);
+      m_effectiveMass = k.Inverted;
 
       // TODO: warm starting
-      m_impulse = Vector3.zero;
+      m_lambda = Vector3.zero;
     }
 
     public void SolveVelocityConstraint(float dt)
     {
       var body = GetComponent<Body>();
 
-      Vector3 cVel = body.LinearVelocity + m_bias + m_gamma * m_impulse;
-      Vector3 impulse = m_effectiveMass * (-cVel);
-      // TODO: max impulse
-      m_impulse += impulse;
+      Vector3 cVel = body.LinearVelocity + m_bias + m_gamma * m_lambda;
+      Vector3 lambda = m_effectiveMass * (-cVel);
+      m_lambda += lambda;
 
-      body.LinearVelocity += body.InverseMass * impulse;
+      body.LinearVelocity += body.InverseMass * lambda;
+
+      if (EnableRotation)
+        body.AngularVelocity += body.InverseInertia * m_cross.Transposed * lambda;
     }
   }
 }
