@@ -32,7 +32,7 @@ public class SimplePointConstraintMain : MonoBehaviour
     Vector3 c = Ball.transform.position - P.transform.position;
 
     v += (-Beta / dt) * c;
-    v *= 0.9f; // temp cheat
+    v *= 0.9f; // temp magic cheat
     Ball.transform.position += v * dt;
   }
 }

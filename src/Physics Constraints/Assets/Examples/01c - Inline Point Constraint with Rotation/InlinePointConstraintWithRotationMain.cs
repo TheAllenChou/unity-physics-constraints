@@ -71,13 +71,11 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
     // velocity correction
     v += massInv * lambda;
     a += (inertiaInv * s.Transposed) * lambda;
-    v *= 0.98f;
-    a *= 0.98f;
+    v *= 0.98f; // temp magic cheat
+    a *= 0.98f; // temp magic cheat
 
     // integration
-    Vector3 pos = Box.transform.position;
-    pos += v * dt;
-    Box.transform.position = pos;
+    Box.transform.position += v * dt;
     Quaternion q = QuaternionUtil.AxisAngle(VectorUtil.NormalizeSafe(a, Vector3.forward), a.magnitude * dt);
     Box.transform.rotation = q * Box.transform.rotation;
   }
