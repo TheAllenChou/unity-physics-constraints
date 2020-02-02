@@ -26,6 +26,7 @@ namespace PhysicsConstraints
     public static Vector3 Gravity = Vector3.zero;
 
     private static HashSet<Constraint> s_constraints;
+    private static HashSet<Contact> s_contacts;
     public static void Register(Constraint c)
     {
       ValidateWorld();
@@ -51,6 +52,11 @@ namespace PhysicsConstraints
         return;
 
       s_bodies.Remove(b);
+    }
+
+    public static void AddContact(Contact contact)
+    {
+      s_contacts.Add(contact);
     }
 
     private static GameObject s_world;
@@ -81,24 +87,42 @@ namespace PhysicsConstraints
 
     public static void Step(float dt)
     {
+      // gravity
       Vector3 gravityImpulse = Gravity * dt;
       foreach (var body in s_bodies)
       {
         body.LinearVelocity += gravityImpulse;
       }
 
+      // init constraints
       foreach (var constraint in s_constraints)
       {
         constraint.InitVelocityConstraint(dt);
       }
+      foreach (var contact in s_contacts)
+      {
+        contact.InitVelocityConstraint(dt);
+      }
 
+      // solve constraints
       for (int i = 0; i < s_velocityIterations; ++i)
       {
         foreach (var constraint in s_constraints)
         {
           constraint.SolveVelocityConstraint(dt);
         }
+        foreach (var contact in s_contacts)
+        {
+          contact.SolveVelocityConstraint(dt);
+        }
       }
+
+      // clear contacts
+      foreach (var constraint in s_constraints)
+      {
+        Pool<Constraint>.Store(constraint);
+      }
+      s_contacts.Clear();
 
       foreach (var body in s_bodies)
       {
