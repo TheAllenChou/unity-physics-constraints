@@ -67,6 +67,7 @@ namespace PhysicsConstraints
         return;
 
       s_constraints = new HashSet<Constraint>();
+      s_contacts = new HashSet<Contact>();
       s_bodies = new HashSet<Body>();
 
       s_world = new GameObject("World (Physics Constraints)");
