@@ -125,9 +125,17 @@ namespace PhysicsConstraints
       }
       s_contacts.Clear();
 
+      // integrate
       foreach (var body in s_bodies)
       {
         body.Integrate(dt);
+      }
+
+      // drag
+      foreach (var body in s_bodies)
+      {
+        body.LinearVelocity *= Mathf.Pow(1.0f - body.LinearDrag, dt);
+        body.AngularVelocity *= Mathf.Pow(1.0f - body.AngularDrag, dt);
       }
     }
   }

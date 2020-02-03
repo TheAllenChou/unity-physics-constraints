@@ -72,8 +72,12 @@ namespace PhysicsConstraints
     // velocity
     [HideInInspector]
     public Vector3 LinearVelocity;
+    [Range(0.0f, 1.0f)]
+    public float LinearDrag = 0.0f;
     [HideInInspector]
     public Vector3 AngularVelocity;
+    [Range(0.0f, 1.0f)]
+    public float AngularDrag = 0.0f;
 
     // transform
     public bool LockPosition = false;

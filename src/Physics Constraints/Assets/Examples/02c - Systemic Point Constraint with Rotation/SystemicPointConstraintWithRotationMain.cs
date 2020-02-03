@@ -17,6 +17,6 @@ public class SystemicPointConstraintWithRotationMain : MonoBehaviour
 {
   private void Start()
   {
-    World.Gravity = 9.8f * Vector3.down;
+    World.Gravity = 20.0f * Vector3.down;
   }
 }
