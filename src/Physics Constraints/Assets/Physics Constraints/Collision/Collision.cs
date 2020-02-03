@@ -19,10 +19,10 @@ namespace PhysicsConstraints
   {
     public static bool SphereVsSphere
     (
-      Body bodyA, 
+      PhysicsBody bodyA, 
       Vector3 centerA, 
       float radiusA, 
-      Body bodyB, 
+      PhysicsBody bodyB, 
       Vector3 centerB, 
       float radiusB, 
       ref Contact contactOut

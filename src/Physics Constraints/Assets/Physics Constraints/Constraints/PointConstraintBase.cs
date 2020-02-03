@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace PhysicsConstraints
 {
-  [RequireComponent(typeof(Body))]
+  [RequireComponent(typeof(PhysicsBody))]
   public abstract class PointConstraintBase : MonoBehaviour, Constraint
   {
     public ConstraintParams ConstraintParams = new ConstraintParams();
@@ -40,7 +40,7 @@ namespace PhysicsConstraints
 
     public void InitVelocityConstraint(float dt)
     {
-      var body = GetComponent<Body>();
+      var body = GetComponent<PhysicsBody>();
 
       float beta;
       ConstraintUtil.VelocityConstraintBias(body.Mass, ConstraintParams, dt, out beta, out m_gamma);
@@ -66,7 +66,7 @@ namespace PhysicsConstraints
 
     public void SolveVelocityConstraint(float dt)
     {
-      var body = GetComponent<Body>();
+      var body = GetComponent<PhysicsBody>();
 
       Vector3 cVel = body.LinearVelocity + m_bias + m_gamma * m_lambda;
       Vector3 lambda = m_effectiveMass * (-cVel);

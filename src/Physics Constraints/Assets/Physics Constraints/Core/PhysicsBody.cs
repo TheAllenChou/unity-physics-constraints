@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace PhysicsConstraints
 {
-  public class Body : MonoBehaviour
+  public class PhysicsBody : MonoBehaviour
   {
     // mass
     private float m_mass;
@@ -93,7 +93,7 @@ namespace PhysicsConstraints
     public bool LockPosition = false;
     public bool LockRotation = false;
 
-    public Body()
+    public PhysicsBody()
     {
       Mass = 1.0f;
       Inertia = Matrix3x3.Identity;

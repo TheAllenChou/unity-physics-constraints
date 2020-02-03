@@ -28,7 +28,7 @@ namespace PhysicsConstraints
         if (Objects[i] == null)
           continue;
 
-        var bodyA = Objects[i].GetComponent<Body>();
+        var bodyA = Objects[i].GetComponent<PhysicsBody>();
         if (bodyA == null)
           continue;
 
@@ -37,7 +37,7 @@ namespace PhysicsConstraints
           if (Objects[j] == null)
             continue;
 
-          var bodyB = Objects[j].GetComponent<Body>();
+          var bodyB = Objects[j].GetComponent<PhysicsBody>();
           if (bodyB == null)
             continue;
 

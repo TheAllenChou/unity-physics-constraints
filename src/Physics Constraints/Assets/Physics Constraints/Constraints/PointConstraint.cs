@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace PhysicsConstraints
 {
-  [RequireComponent(typeof(Body))]
+  [RequireComponent(typeof(PhysicsBody))]
   public class PointConstraint : PointConstraintBase
   {
     public Transform Target;

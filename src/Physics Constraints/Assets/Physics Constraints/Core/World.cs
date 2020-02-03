@@ -40,13 +40,13 @@ namespace PhysicsConstraints
       s_constraints.Remove(c);
     }
 
-    private static HashSet<Body> s_bodies;
-    public static void Register(Body b)
+    private static HashSet<PhysicsBody> s_bodies;
+    public static void Register(PhysicsBody b)
     {
       ValidateWorld();
       s_bodies.Add(b);
     }
-    public static void Unregister(Body b)
+    public static void Unregister(PhysicsBody b)
     {
       if (s_bodies == null)
         return;
@@ -68,7 +68,7 @@ namespace PhysicsConstraints
 
       s_constraints = new HashSet<Constraint>();
       s_contacts = new HashSet<Contact>();
-      s_bodies = new HashSet<Body>();
+      s_bodies = new HashSet<PhysicsBody>();
 
       s_world = new GameObject("World (Physics Constraints)");
       s_world.AddComponent<World>();

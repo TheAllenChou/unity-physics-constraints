@@ -14,11 +14,11 @@ using UnityEngine;
 
 namespace PhysicsConstraints
 {
-  [RequireComponent(typeof(Body))]
+  [RequireComponent(typeof(PhysicsBody))]
   public class Contact
   {
-    public Body BodyA;
-    public Body BodyB;
+    public PhysicsBody BodyA;
+    public PhysicsBody BodyB;
     public Vector3 PositionA;
     public Vector3 PositionB;
     public Vector3 Normal;

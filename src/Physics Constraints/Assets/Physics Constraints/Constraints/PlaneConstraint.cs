@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace PhysicsConstraints
 {
-  [RequireComponent(typeof(Body))]
+  [RequireComponent(typeof(PhysicsBody))]
   public class PlaneConstraint : MonoBehaviour, Constraint
   {
     public ConstraintParams ConstraintParams = new ConstraintParams();
@@ -42,7 +42,7 @@ namespace PhysicsConstraints
 
     public void InitVelocityConstraint(float dt)
     {
-      var body = GetComponent<Body>();
+      var body = GetComponent<PhysicsBody>();
 
       float beta;
       ConstraintUtil.VelocityConstraintBias(body.Mass, ConstraintParams, dt, out beta, out m_gamma);
@@ -67,7 +67,7 @@ namespace PhysicsConstraints
       if (m_d > 0.0f)
         return;
 
-      var body = GetComponent<Body>();
+      var body = GetComponent<PhysicsBody>();
 
       Vector3 cVel = Vector3.Project(body.LinearVelocity, m_n) + m_bias + m_gamma * m_impulse;
 
