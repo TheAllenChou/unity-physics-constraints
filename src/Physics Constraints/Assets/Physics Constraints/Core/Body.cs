@@ -70,14 +70,24 @@ namespace PhysicsConstraints
     }
 
     // velocity
-    [HideInInspector]
     public Vector3 LinearVelocity;
-    [Range(0.0f, 1.0f)]
-    public float LinearDrag = 0.0f;
-    [HideInInspector]
     public Vector3 AngularVelocity;
     [Range(0.0f, 1.0f)]
+    public float LinearDrag = 0.0f;
+    [Range(0.0f, 1.0f)]
     public float AngularDrag = 0.0f;
+
+    // gravity
+    [Range(0.0f, 1.0f)]
+    public float GravityScale = 1.0f;
+
+    // contact
+    [Range(0.0f, 1.0f)]
+    public float ContactBeta = 0.5f;
+    [Range(0.0f, 1.0f)]
+    public float Restitution = 0.7f;
+    [Range(0.0f, 100.0f)]
+    public float Friction = 1.0f;
 
     // transform
     public bool LockPosition = false;

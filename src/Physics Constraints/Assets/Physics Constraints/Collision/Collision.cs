@@ -17,7 +17,7 @@ namespace PhysicsConstraints
 {
   public class Collision
   {
-    public bool SphereVsSphere
+    public static bool SphereVsSphere
     (
       Body bodyA, 
       Vector3 centerA, 

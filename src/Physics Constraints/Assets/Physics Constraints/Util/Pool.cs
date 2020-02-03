@@ -13,14 +13,14 @@ using System.Collections.Generic;
 
 namespace PhysicsConstraints
 {
-  public class Pool<T>
+  public class Pool<T> where T : new()
   {
     private static List<T> s_pool = new List<T>();
 
     public static T Get()
     {
       if (s_pool.Count == 0)
-        return default(T);
+        return new T();
 
       var obj = s_pool[s_pool.Count - 1];
       s_pool.RemoveAt(s_pool.Count - 1);

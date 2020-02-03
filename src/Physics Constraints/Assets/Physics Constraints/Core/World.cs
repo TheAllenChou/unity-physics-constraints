@@ -92,13 +92,13 @@ namespace PhysicsConstraints
       Vector3 gravityImpulse = Gravity * dt;
       foreach (var body in s_bodies)
       {
-        body.LinearVelocity += gravityImpulse;
+        body.LinearVelocity += gravityImpulse * body.GravityScale;
       }
 
       // init constraints
-      foreach (var constraint in s_constraints)
+      foreach (var contact in s_constraints)
       {
-        constraint.InitVelocityConstraint(dt);
+        contact.InitVelocityConstraint(dt);
       }
       foreach (var contact in s_contacts)
       {
@@ -119,9 +119,9 @@ namespace PhysicsConstraints
       }
 
       // clear contacts
-      foreach (var constraint in s_constraints)
+      foreach (var contact in s_contacts)
       {
-        Pool<Constraint>.Store(constraint);
+        Pool<Contact>.Store(contact);
       }
       s_contacts.Clear();
 

@@ -38,10 +38,10 @@ namespace CjLib
     // If the given vector is a unit vector, the returned vector will also be a unit vector.
     public static Vector3 FindOrthogonal(Vector3 v)
     {
-      if (v.x >= MathUtil.Sqrt3Inv)
-        return new Vector3(v.y, -v.x, 0.0f);
+      if (Mathf.Abs(v.x) >= MathUtil.Sqrt3Inv)
+        return Vector3.Normalize(new Vector3(v.y, -v.x, 0.0f));
       else
-        return new Vector3(0.0f, v.z, -v.y);
+        return Vector3.Normalize(new Vector3(0.0f, v.z, -v.y));
     }
 
     // Yields two extra vectors that form an orthogonal basis with the given vector.
