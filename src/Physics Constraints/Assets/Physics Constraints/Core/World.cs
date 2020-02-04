@@ -25,14 +25,27 @@ namespace PhysicsConstraints
 
     public static Vector3 Gravity = Vector3.zero;
 
-    private static HashSet<Constraint> s_constraints;
-    private static HashSet<Contact> s_contacts;
-    public static void Register(Constraint c)
+    private static IBroadphase m_broadphase = new NSquared();
+    public static IBroadphase Broadphase
+    {
+      get { return m_broadphase; }
+      set
+      {
+        if (value != null)
+          m_broadphase = value;
+        else
+          m_broadphase = new NSquared();
+      }
+    }
+
+    // constraints
+    private static ICollection<IPhysicsConstraint> s_constraints;
+    public static void Register(IPhysicsConstraint c)
     {
       ValidateWorld();
       s_constraints.Add(c);
     }
-    public static void Unregister(Constraint c)
+    public static void Unregister(IPhysicsConstraint c)
     {
       if (s_constraints == null)
         return;
@@ -40,7 +53,17 @@ namespace PhysicsConstraints
       s_constraints.Remove(c);
     }
 
-    private static HashSet<PhysicsBody> s_bodies;
+    // contacts
+    private static ICollection<Contact> s_contacts;
+    public static void Register(Contact contact)
+    {
+      ValidateWorld();
+      s_contacts.Add(contact);
+    }
+    // no need to unregister, as contacts are cleared every time step
+
+    // physics bodies
+    private static ICollection<PhysicsBody> s_bodies;
     public static void Register(PhysicsBody b)
     {
       ValidateWorld();
@@ -54,6 +77,7 @@ namespace PhysicsConstraints
       s_bodies.Remove(b);
     }
 
+    // colliders
     private static HashSet<PhysicsCollider> s_colliders;
     public static void Register(PhysicsCollider collider)
     {
@@ -65,11 +89,6 @@ namespace PhysicsConstraints
       s_colliders.Remove(collider);
     }
 
-    public static void AddContact(Contact contact)
-    {
-      s_contacts.Add(contact);
-    }
-
     private static GameObject s_world;
     private static void ValidateWorld()
     {
@@ -77,8 +96,8 @@ namespace PhysicsConstraints
       if (s_world != null)
         return;
 
-      s_constraints = new HashSet<Constraint>();
-      s_contacts = new HashSet<Contact>();
+      s_constraints = new HashSet<IPhysicsConstraint>();
+      s_contacts = new List<Contact>();
       s_bodies = new HashSet<PhysicsBody>();
       s_colliders = new HashSet<PhysicsCollider>();
 
@@ -102,24 +121,14 @@ namespace PhysicsConstraints
     {
       // collision detection
       {
-        // N-squared "broadphase"
-        var itColliderA = s_colliders.GetEnumerator();
-        while (itColliderA.MoveNext())
+        var colliderPairs = Broadphase.GenerateColliderPairs(s_colliders);
+        foreach (var colliderPair in colliderPairs)
         {
-          var itColliderB = itColliderA;
-          while (itColliderB.MoveNext())
-          {
-            var colliderA = itColliderA.Current;
-            var colliderB = itColliderB.Current;
-            if (colliderA.gameObject == colliderB.gameObject)
-              continue;
+          Contact contact = null;
+          if (!Collision.DetectCollision(colliderPair.ColliderA, colliderPair.ColliderB, ref contact))
+            continue;
 
-            Contact contact = null;
-            if (!Collision.DetectCollision(colliderA, colliderB, ref contact))
-              continue;
-
-            AddContact(contact);
-          }
+          Register(contact);
         }
       }
 

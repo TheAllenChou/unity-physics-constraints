@@ -11,7 +11,7 @@
 
 namespace PhysicsConstraints
 {
-  public interface Constraint
+  public interface IPhysicsConstraint
   {
     void InitVelocityConstraint(float dt);
     void SolveVelocityConstraint(float dt);

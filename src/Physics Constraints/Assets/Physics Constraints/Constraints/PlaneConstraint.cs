@@ -14,7 +14,7 @@ using UnityEngine;
 namespace PhysicsConstraints
 {
   [RequireComponent(typeof(PhysicsBody))]
-  public class PlaneConstraint : MonoBehaviour, Constraint
+  public class PlaneConstraint : MonoBehaviour, IPhysicsConstraint
   {
     public ConstraintParams ConstraintParams = new ConstraintParams();
 

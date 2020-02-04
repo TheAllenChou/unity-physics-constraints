@@ -14,7 +14,7 @@ using UnityEngine;
 namespace PhysicsConstraints
 {
   [RequireComponent(typeof(PhysicsBody))]
-  public abstract class PointConstraintBase : MonoBehaviour, Constraint
+  public abstract class PointConstraintBase : MonoBehaviour, IPhysicsConstraint
   {
     public ConstraintParams ConstraintParams = new ConstraintParams();
     public bool EnableRotation = false;

@@ -15,7 +15,7 @@ using UnityEngine;
 namespace PhysicsConstraints
 {
   [RequireComponent(typeof(PhysicsBody))]
-  public class Contact
+  public class Contact : IPhysicsConstraint
   {
     public PhysicsBody BodyA;
     public PhysicsBody BodyB;
