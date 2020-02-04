@@ -54,6 +54,17 @@ namespace PhysicsConstraints
       s_bodies.Remove(b);
     }
 
+    private static HashSet<PhysicsCollider> s_colliders;
+    public static void Register(PhysicsCollider collider)
+    {
+      ValidateWorld();
+      s_colliders.Add(collider);
+    }
+    public static void Unregister(PhysicsCollider collider)
+    {
+      s_colliders.Remove(collider);
+    }
+
     public static void AddContact(Contact contact)
     {
       s_contacts.Add(contact);
@@ -69,6 +80,7 @@ namespace PhysicsConstraints
       s_constraints = new HashSet<Constraint>();
       s_contacts = new HashSet<Contact>();
       s_bodies = new HashSet<PhysicsBody>();
+      s_colliders = new HashSet<PhysicsCollider>();
 
       s_world = new GameObject("World (Physics Constraints)");
       s_world.AddComponent<World>();
@@ -88,11 +100,36 @@ namespace PhysicsConstraints
 
     public static void Step(float dt)
     {
-      // gravity
-      Vector3 gravityImpulse = Gravity * dt;
-      foreach (var body in s_bodies)
+      // collision detection
       {
-        body.LinearVelocity += gravityImpulse * body.GravityScale;
+        // N-squared "broadphase"
+        var itColliderA = s_colliders.GetEnumerator();
+        while (itColliderA.MoveNext())
+        {
+          var itColliderB = itColliderA;
+          while (itColliderB.MoveNext())
+          {
+            var colliderA = itColliderA.Current;
+            var colliderB = itColliderB.Current;
+            if (colliderA.gameObject == colliderB.gameObject)
+              continue;
+
+            Contact contact = null;
+            if (!Collision.DetectCollision(colliderA, colliderB, ref contact))
+              continue;
+
+            AddContact(contact);
+          }
+        }
+      }
+
+      // gravity
+      {
+        Vector3 gravityImpulse = Gravity * dt;
+        foreach (var body in s_bodies)
+        {
+          body.LinearVelocity += gravityImpulse * body.GravityScale;
+        }
       }
 
       // init constraints

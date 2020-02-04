@@ -86,7 +86,7 @@ namespace PhysicsConstraints
     public float ContactBeta = 0.5f;
     [Range(0.0f, 1.0f)]
     public float Restitution = 0.7f;
-    [Range(0.0f, 100.0f)]
+    [Min(0.0f)]
     public float Friction = 1.0f;
 
     // transform
