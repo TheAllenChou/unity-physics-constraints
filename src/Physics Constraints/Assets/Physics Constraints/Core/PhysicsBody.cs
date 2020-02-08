@@ -38,21 +38,33 @@ namespace PhysicsConstraints
       }
     }
 
-    // inertia tensor
-    public Matrix3x3 m_inertia;
-    public Matrix3x3 m_inverseInertia;
-    public Matrix3x3 Inertia
+    // moment of inertia
+    private Matrix3x3 m_inertiaLs;
+    private Matrix3x3 m_inverseInertiaLs;
+    private Matrix3x3 m_inverseInertiaWs;
+    public Matrix3x3 InertiaLs
     {
-      get { return m_inertia; }
+      get { return m_inertiaLs; }
       set
       {
-        m_inertia = value;
-        m_inverseInertia = value; // TODO
+        m_inertiaLs = value;
+        m_inverseInertiaLs = m_inertiaLs.Inverted;
+        UpdateInertiaWs();
       }
     }
-    public Matrix3x3 InverseInertia
+    public Matrix3x3 InverseInertiaLs { get { return m_inverseInertiaLs; } }
+    public Matrix3x3 InverseInertiaWs { get { return m_inverseInertiaWs; } }
+    public void UpdateInertiaWs()
     {
-      get { return m_inverseInertia; }
+      var t = transform;
+      var world2Local =
+        Matrix3x3.FromRows
+        (
+          t.TransformVector(new Vector3(1.0f, 0.0f, 0.0f)),
+          t.TransformVector(new Vector3(0.0f, 1.0f, 0.0f)),
+          t.TransformVector(new Vector3(0.0f, 0.0f, 1.0f))
+        );
+      m_inverseInertiaWs = world2Local.Transposed * m_inverseInertiaLs * world2Local;
     }
 
     // center of mass
@@ -96,7 +108,7 @@ namespace PhysicsConstraints
     public PhysicsBody()
     {
       Mass = 1.0f;
-      Inertia = Matrix3x3.Identity;
+      InertiaLs = Matrix3x3.Identity;
       CenterOfMassLs = Vector3.zero;
     }
 
@@ -130,7 +142,7 @@ namespace PhysicsConstraints
         Vector3 atLs = transform.InverseTransformPoint(atWs);
         Vector3 r = atLs - CenterOfMassLs;
         Vector3 angularImpulse = Vector3.Cross(r, impulse);
-        AngularVelocity += InverseInertia * angularImpulse;
+        AngularVelocity += InverseInertiaWs * angularImpulse;
       }
     }
 

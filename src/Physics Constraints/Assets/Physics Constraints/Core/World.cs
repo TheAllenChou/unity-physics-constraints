@@ -119,6 +119,12 @@ namespace PhysicsConstraints
 
     public static void Step(float dt)
     {
+      // inertia
+      foreach (var body in s_bodies)
+      {
+        body.UpdateInertiaWs();
+      }
+
       // collision detection
       {
         var colliderPairs = Broadphase.GenerateColliderPairs(s_colliders);

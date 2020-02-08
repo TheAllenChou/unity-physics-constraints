@@ -98,9 +98,9 @@ namespace PhysicsConstraints
 
         float k = 
             contact.BodyA.InverseMass 
-          + Vector3.Dot(m_wa, contact.BodyA.InverseInertia * m_wa) 
+          + Vector3.Dot(m_wa, contact.BodyA.InverseInertiaWs * m_wa) 
           + contact.BodyB.InverseMass 
-          + Vector3.Dot(m_wb, contact.BodyB.InverseInertia * m_wb);
+          + Vector3.Dot(m_wb, contact.BodyB.InverseInertiaWs * m_wb);
 
         m_effectiveMass = 1.0f / k;
         m_totalLambda = 0.0f;
@@ -155,9 +155,9 @@ namespace PhysicsConstraints
 
         // velocity correction
         contact.BodyA.LinearVelocity += contact.BodyA.InverseMass * m_va * lambda;
-        contact.BodyA.AngularVelocity += contact.BodyA.InverseInertia * m_wa * lambda;
+        contact.BodyA.AngularVelocity += contact.BodyA.InverseInertiaWs * m_wa * lambda;
         contact.BodyB.LinearVelocity += contact.BodyB.InverseMass * m_vb * lambda;
-        contact.BodyB.AngularVelocity += contact.BodyB.InverseInertia * m_wb * lambda;
+        contact.BodyB.AngularVelocity += contact.BodyB.InverseInertiaWs * m_wb * lambda;
       }
     }
   }

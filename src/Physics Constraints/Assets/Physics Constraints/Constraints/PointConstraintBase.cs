@@ -53,7 +53,7 @@ namespace PhysicsConstraints
       m_cross = Matrix3x3.PostCross(r);
       Matrix3x3 k = body.InverseMass * Matrix3x3.Identity;
       if (EnableRotation)
-        k += m_cross * body.InverseInertia * m_cross.Transposed;
+        k += m_cross * body.InverseInertiaWs * m_cross.Transposed;
 
       k += m_gamma * Matrix3x3.Identity;
 
@@ -75,7 +75,7 @@ namespace PhysicsConstraints
       body.LinearVelocity += body.InverseMass * lambda;
 
       if (EnableRotation)
-        body.AngularVelocity += body.InverseInertia * m_cross.Transposed * lambda;
+        body.AngularVelocity += body.InverseInertiaWs * m_cross.Transposed * lambda;
     }
   }
 }
