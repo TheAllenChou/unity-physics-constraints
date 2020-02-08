@@ -175,7 +175,7 @@ MonoBehaviour:
   GravityScale: 1
   ContactBeta: 0.5
   Restitution: 0.7
-  Friction: 0
+  Friction: 1
   LockPosition: 0
   LockRotation: 0
 --- !u!135 &164932247
@@ -209,7 +209,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 02f2842ed350eac469f7be2a4f06fb08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -376,7 +376,7 @@ MonoBehaviour:
   GravityScale: 1
   ContactBeta: 0.5
   Restitution: 0.7
-  Friction: 0
+  Friction: 1
   LockPosition: 0
   LockRotation: 0
 --- !u!135 &459449345
@@ -410,7 +410,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 02f2842ed350eac469f7be2a4f06fb08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -447,7 +447,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459449343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.89, y: 0, z: 0}
+  m_LocalPosition: {x: -6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -551,13 +551,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772745507}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.3139096, y: 0, z: 0, w: 0.94945294}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 36.59, y: 0, z: 0}
 --- !u!1 &2058156900
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,7 +612,7 @@ MonoBehaviour:
   GravityScale: 1
   ContactBeta: 0.5
   Restitution: 0.7
-  Friction: 0
+  Friction: 1
   LockPosition: 0
   LockRotation: 0
 --- !u!135 &2058156903
@@ -646,7 +646,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 02f2842ed350eac469f7be2a4f06fb08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -724,13 +724,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_centerOfMassLs: {x: 0, y: 0, z: 0}
   LinearVelocity: {x: 0, y: 0, z: 0}
-  AngularVelocity: {x: 0, y: 5, z: 5}
+  AngularVelocity: {x: 0, y: 1, z: 0}
   LinearDrag: 0
   AngularDrag: 0
   GravityScale: 1
   ContactBeta: 0.5
   Restitution: 0.7
-  Friction: 0
+  Friction: 1
   LockPosition: 0
   LockRotation: 0
 --- !u!135 &2130243280
@@ -764,7 +764,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 02f2842ed350eac469f7be2a4f06fb08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
