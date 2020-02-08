@@ -49,7 +49,6 @@ namespace PhysicsConstraints
       {
         m_inertiaLs = value;
         m_inverseInertiaLs = m_inertiaLs.Inverted;
-        UpdateInertiaWs();
       }
     }
     public Matrix3x3 InverseInertiaLs { get { return m_inverseInertiaLs; } }
@@ -115,6 +114,8 @@ namespace PhysicsConstraints
     private void OnEnable()
     {
       World.Register(this);
+
+      UpdateInertiaWs();
     }
 
     private void OnDisable()
