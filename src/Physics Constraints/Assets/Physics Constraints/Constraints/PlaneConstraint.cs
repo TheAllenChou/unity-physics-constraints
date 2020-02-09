@@ -27,7 +27,7 @@ namespace PhysicsConstraints
 
     private Vector3 m_impulse;
     private float m_effectiveMass;
-    private float m_gamma;
+    private float sbc;
     private Vector3 m_bias;
 
     private void OnEnable()
@@ -44,8 +44,8 @@ namespace PhysicsConstraints
     {
       var body = GetComponent<PhysicsBody>();
 
-      float beta;
-      ConstraintUtil.VelocityConstraintBias(body.Mass, ConstraintParams, dt, out beta, out m_gamma);
+      float pbc;
+      ConstraintUtil.VelocityConstraintBias(body.Mass, ConstraintParams, dt, out pbc, out sbc);
 
       m_n = (Plane != null) ? Plane.transform.up : Vector3.up;
       m_p = (Plane != null) ? Plane.transform.position : transform.position;
@@ -55,8 +55,8 @@ namespace PhysicsConstraints
         return;
 
       Vector3 cPos = m_d * m_n;
-      m_bias = beta * cPos + Restitution * Vector3.Project(-body.LinearVelocity, m_n);
-      m_effectiveMass = 1.0f / (body.InverseMass + m_gamma);
+      m_bias = pbc * cPos + Restitution * Vector3.Project(-body.LinearVelocity, m_n);
+      m_effectiveMass = 1.0f / (body.InverseMass + sbc);
 
       // TODO: warm starting
       m_impulse = Vector3.zero;
@@ -69,7 +69,7 @@ namespace PhysicsConstraints
 
       var body = GetComponent<PhysicsBody>();
 
-      Vector3 cVel = Vector3.Project(body.LinearVelocity, m_n) + m_bias + m_gamma * m_impulse;
+      Vector3 cVel = Vector3.Project(body.LinearVelocity, m_n) + m_bias + sbc * m_impulse;
 
       Vector3 impulse = m_effectiveMass * (-cVel);
       // TODO: max impulse

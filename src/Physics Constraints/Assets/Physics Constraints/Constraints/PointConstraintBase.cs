@@ -25,8 +25,8 @@ namespace PhysicsConstraints
     private Vector3 m_lambda;
     private Matrix3x3 m_effectiveMass;
     private Matrix3x3 m_cross;
-    private float m_gamma;
-    private Vector3 m_bias;
+    private float m_sbc;
+    private Vector3 m_positionErrorBias;
 
     private void OnEnable()
     {
@@ -42,8 +42,8 @@ namespace PhysicsConstraints
     {
       var body = GetComponent<PhysicsBody>();
 
-      float beta;
-      ConstraintUtil.VelocityConstraintBias(body.Mass, ConstraintParams, dt, out beta, out m_gamma);
+      float pbc;
+      ConstraintUtil.VelocityConstraintBias(body.Mass, ConstraintParams, dt, out pbc, out m_sbc);
 
       Vector3 r = transform.rotation * GetLocalAnchor();
 
@@ -55,9 +55,9 @@ namespace PhysicsConstraints
       if (EnableRotation)
         k += m_cross * body.InverseInertiaWs * m_cross.Transposed;
 
-      k += m_gamma * Matrix3x3.Identity;
+      k += m_sbc * Matrix3x3.Identity;
 
-      m_bias = beta * cPos;
+      m_positionErrorBias = pbc * cPos;
       m_effectiveMass = k.Inverted;
 
       // TODO: warm starting
@@ -68,7 +68,7 @@ namespace PhysicsConstraints
     {
       var body = GetComponent<PhysicsBody>();
 
-      Vector3 cVel = body.LinearVelocity + m_bias + m_gamma * m_lambda;
+      Vector3 cVel = body.LinearVelocity + m_positionErrorBias + m_sbc * m_lambda;
       Vector3 lambda = m_effectiveMass * (-cVel);
       m_lambda += lambda;
 
