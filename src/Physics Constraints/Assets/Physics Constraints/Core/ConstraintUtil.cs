@@ -20,8 +20,8 @@ namespace PhysicsConstraints
     // k: spring constant
     // omega: angular velocity
     // zeta: damping ratio
-    // gamma: softness
-    // beta: positional error coefficient
+    // gamma: softness (force feedback factor)
+    // beta: Baumgarte (positional error feedback factor)
 
     internal static readonly float Epsilon = 1.0e-10f;
     internal static readonly float TwoPi = 2.0f * Mathf.PI;
