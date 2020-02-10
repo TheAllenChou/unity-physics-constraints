@@ -18,7 +18,7 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
 {
   public float Beta = 0.02f;
 
-  public GameObject Box;
+  public GameObject Object;
   public GameObject Target;
 
   public Vector3 Gravity = new Vector3(0.0f, -9.8f, 0.0f);
@@ -45,7 +45,7 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
 
   private void Update()
   {
-    if (Box == null)
+    if (Object == null)
       return;
 
     if (Target == null)
@@ -53,13 +53,13 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
 
     float dt = Time.deltaTime;
 
-    Vector3 r = Box.transform.rotation * rLocal;
+    Vector3 r = Object.transform.rotation * rLocal;
 
     // gravity
     v += Gravity * dt;
 
     // constraint errors
-    Vector3 cPos = (Box.transform.position + r) - Target.transform.position;
+    Vector3 cPos = (Object.transform.position + r) - Target.transform.position;
     Vector3 cVel = v + Vector3.Cross(a, r);
 
     // constraint resolution
@@ -75,8 +75,8 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
     a *= 0.98f; // temp magic cheat
 
     // integration
-    Box.transform.position += v * dt;
+    Object.transform.position += v * dt;
     Quaternion q = QuaternionUtil.AxisAngle(VectorUtil.NormalizeSafe(a, Vector3.forward), a.magnitude * dt);
-    Box.transform.rotation = q * Box.transform.rotation;
+    Object.transform.rotation = q * Object.transform.rotation;
   }
 }

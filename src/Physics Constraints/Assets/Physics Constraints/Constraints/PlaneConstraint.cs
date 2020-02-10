@@ -19,6 +19,7 @@ namespace PhysicsConstraints
     public ConstraintParams ConstraintParams = new ConstraintParams();
 
     public float Restitution = 0.8f;
+    public float Offset = 0.0f;
 
     public Transform Plane;
     private Vector3 m_n; // plane normal
@@ -49,7 +50,7 @@ namespace PhysicsConstraints
 
       m_n = (Plane != null) ? Plane.transform.up : Vector3.up;
       m_p = (Plane != null) ? Plane.transform.position : transform.position;
-      m_d = Vector3.Dot(transform.position - m_p, m_n);
+      m_d = Vector3.Dot(transform.position - m_p, m_n) - Offset;
 
       if (m_d > 0.0f)
         return;

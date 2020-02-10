@@ -11,28 +11,28 @@
 
 using UnityEngine;
 
-public class SimplePointConstraintMain : MonoBehaviour
+public class InlinePointConstraintMain : MonoBehaviour
 {
   public float Beta = 0.02f;
 
-  public GameObject Ball;
-  public GameObject P;
+  public GameObject Object;
+  public GameObject Target;
 
   private Vector3 v = Vector3.zero;
 
   private void Update()
   {
-    if (Ball == null)
+    if (Object == null)
       return;
 
-    if (P == null)
+    if (Target == null)
       return;
 
     float dt = Time.deltaTime;
-    Vector3 c = Ball.transform.position - P.transform.position;
+    Vector3 c = Object.transform.position - Target.transform.position;
 
     v += (-Beta / dt) * c;
     v *= 0.9f; // temp magic cheat
-    Ball.transform.position += v * dt;
+    Object.transform.position += v * dt;
   }
 }

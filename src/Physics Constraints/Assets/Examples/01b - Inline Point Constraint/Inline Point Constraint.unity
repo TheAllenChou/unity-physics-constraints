@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 383632031}
   - component: {fileID: 383632030}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -511,9 +511,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068ebeb9e12d44d4a81afedfce43ccf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Beta: 0.025
-  Ball: {fileID: 383632029}
-  P: {fileID: 1114731809}
+  Beta: 0.02
+  Object: {fileID: 1114731809}
+  Target: {fileID: 383632029}
 --- !u!4 &1966564070
 Transform:
   m_ObjectHideFlags: 0

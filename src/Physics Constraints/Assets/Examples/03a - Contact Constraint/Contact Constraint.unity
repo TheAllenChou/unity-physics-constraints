@@ -245,13 +245,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164932244}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.5064498, y: -0.10684689, z: 0.2065545, w: 0.83031774}
   m_LocalPosition: {x: 1.82, y: 0.37, z: 0.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -52.834003, y: -39.793003, z: 48.325}
 --- !u!1 &374646463
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,13 +446,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459449343}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.32742223, y: 0.22932741, z: 0.2196378, w: 0.889923}
   m_LocalPosition: {x: -6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -43.118004, y: 21.231, z: 19.257}
 --- !u!114 &459449349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772745507}
   m_LocalRotation: {x: 0.3139096, y: 0, z: 0, w: 0.94945294}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 6.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -682,13 +682,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2058156900}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.3912596, y: 0.103041545, z: 0.38460198, w: 0.8296865}
   m_LocalPosition: {x: 1.83, y: -0.5, z: -0.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -46.761, y: -10.937, z: 54.480003}
 --- !u!1 &2130243278
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,13 +724,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_centerOfMassLs: {x: 0, y: 0, z: 0}
   LinearVelocity: {x: 0, y: 0, z: 0}
-  AngularVelocity: {x: 0, y: 1, z: 0}
+  AngularVelocity: {x: 0, y: 5, z: 5}
   LinearDrag: 0
   AngularDrag: 0
   GravityScale: 1
   ContactBeta: 0.5
   Restitution: 0.7
-  Friction: 1
+  Friction: 5
   LockPosition: 0
   LockRotation: 0
 --- !u!135 &2130243280
