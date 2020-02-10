@@ -40,8 +40,8 @@ namespace PhysicsConstraints
 
     public void InitVelocityConstraint(float dt)
     {
-      m_rA = PositionA - BodyA.transform.position;
-      m_rB = PositionB - BodyB.transform.position;
+      m_rA = PositionA - BodyA.CenterOfMassWs;
+      m_rB = PositionB - BodyB.CenterOfMassWs;
 
       Vector3 tangent;
       Vector3 bitangent;
