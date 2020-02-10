@@ -45,7 +45,7 @@ namespace PhysicsConstraints
       float pbc;
       ConstraintUtil.VelocityConstraintBias(body.Mass, ConstraintParams, dt, out pbc, out m_sbc);
 
-      Vector3 r = transform.rotation * GetLocalAnchor();
+      Vector3 r = transform.rotation * (GetLocalAnchor() - body.CenterOfMassLs);
 
       Vector3 cPos = (transform.position + r) - GetTarget();
       Vector3 cVel = body.LinearVelocity + Vector3.Cross(body.AngularVelocity, r);
