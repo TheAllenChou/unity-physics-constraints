@@ -29,7 +29,7 @@ namespace PhysicsConstraints
     private Vector3 m_impulse;
     private float m_effectiveMass;
     private float sbc;
-    private Vector3 m_bias;
+    private Vector3 m_positionErrorBias;
 
     private void OnEnable()
     {
@@ -56,7 +56,7 @@ namespace PhysicsConstraints
         return;
 
       Vector3 cPos = m_d * m_n;
-      m_bias = pbc * cPos + Restitution * Vector3.Project(-body.LinearVelocity, m_n);
+      m_positionErrorBias = pbc * cPos + Restitution * Vector3.Project(-body.LinearVelocity, m_n);
       m_effectiveMass = 1.0f / (body.InverseMass + sbc);
 
       // TODO: warm starting
@@ -70,7 +70,7 @@ namespace PhysicsConstraints
 
       var body = GetComponent<PhysicsBody>();
 
-      Vector3 cVel = Vector3.Project(body.LinearVelocity, m_n) + m_bias + sbc * m_impulse;
+      Vector3 cVel = Vector3.Project(body.LinearVelocity, m_n) + m_positionErrorBias + sbc * m_impulse;
 
       Vector3 impulse = m_effectiveMass * (-cVel);
       // TODO: max impulse
