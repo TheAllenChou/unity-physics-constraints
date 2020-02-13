@@ -10,6 +10,7 @@
 /******************************************************************************/
 
 using CjLib;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace PhysicsConstraints
@@ -151,13 +152,12 @@ namespace PhysicsConstraints
     {
       if (!LockPosition)
       {
-        transform.position += LinearVelocity * dt;;
+        transform.position = VectorUtil.Integrate(transform.position, LinearVelocity, dt);
       }
 
       if (!LockRotation)
       {
-        Quaternion q = QuaternionUtil.AxisAngle(VectorUtil.NormalizeSafe(AngularVelocity, Vector3.forward), AngularVelocity.magnitude * dt);
-        transform.rotation = q * transform.rotation;
+        transform.rotation = QuaternionUtil.Integrate(transform.rotation, AngularVelocity, dt);
       }
     }
   }
