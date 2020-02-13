@@ -63,7 +63,7 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
     Vector3 cVel = v + Vector3.Cross(a, r);
 
     // constraint resolution
-    Matrix3x3 s = Matrix3x3.PostCross(r);
+    Matrix3x3 s = Matrix3x3.Skew(-r);
     Matrix3x3 k = massInv * Matrix3x3.Identity + s * inertiaInv * s.Transposed;
     Matrix3x3 effectiveMass = k.Inverted;
     Vector3 lambda = effectiveMass * (-(cVel + (Beta / dt) * cPos));

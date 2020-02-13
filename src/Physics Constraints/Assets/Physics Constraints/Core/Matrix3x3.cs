@@ -97,25 +97,15 @@ namespace PhysicsConstraints
       );
     public static Matrix3x3 Identity { get { return kIdentity; } }
 
-    public static Matrix3x3 PreCross(Vector3 lhs)
+    // Cross(A, B) = Skew(A) B = Skew(-B) A = Cross(-B, A)
+    public static Matrix3x3 Skew(Vector3 v)
     {
       return
         new Matrix3x3
         (
-            0.0f, -lhs.z,  lhs.y, 
-           lhs.z,   0.0f, -lhs.x, 
-          -lhs.y,  lhs.x,   0.0f
-        );
-    }
-
-    public static Matrix3x3 PostCross(Vector3 rhs)
-    {
-      return
-        new Matrix3x3
-        (
-             0.0f,  rhs.z, -rhs.y, 
-           -rhs.z,   0.0f,  rhs.x, 
-            rhs.y, -rhs.x,   0.0f
+            0.0f, -v.z,  v.y, 
+           v.z,   0.0f, -v.x, 
+          -v.y,  v.x,   0.0f
         );
     }
 

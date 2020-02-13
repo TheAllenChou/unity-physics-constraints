@@ -50,7 +50,7 @@ namespace PhysicsConstraints
       Vector3 cPos = (transform.position + r) - GetTarget();
       Vector3 cVel = body.LinearVelocity + Vector3.Cross(body.AngularVelocity, r);
 
-      m_cross = Matrix3x3.PostCross(r);
+      m_cross = Matrix3x3.Skew(-r);
       Matrix3x3 k = body.InverseMass * Matrix3x3.Identity;
       if (EnableRotation)
         k += m_cross * body.InverseInertiaWs * m_cross.Transposed;
