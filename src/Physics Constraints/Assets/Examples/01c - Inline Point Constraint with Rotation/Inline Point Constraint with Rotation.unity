@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Beta: 0.2
-  Object: {fileID: 0}
+  Object: {fileID: 623197129}
   Target: {fileID: 1583501729}
   Gravity: {x: 0, y: -9.8, z: 0}
 --- !u!4 &1606666736

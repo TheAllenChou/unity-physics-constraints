@@ -37,7 +37,7 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
     mass = 1.0f;
     massInv = 1.0f / mass;
 
-    inertia = Inertia.SolidBox(mass, 1.0f * Vector3.one);
+    inertia = Matrix3x3.Identity; Inertia.SolidBox(mass, 1.0f * Vector3.one);
     inertiaInv = inertia.Inverted;
 
     rLocal = 0.5f * Vector3.one;
@@ -71,8 +71,6 @@ public class InlinePointConstraintWithRotationMain : MonoBehaviour
     // velocity correction
     v += massInv * lambda;
     a += (inertiaInv * s.Transposed) * lambda;
-    v *= 0.98f; // temp magic cheat
-    a *= 0.98f; // temp magic cheat
 
     // integration
     Object.transform.position += v * dt;
