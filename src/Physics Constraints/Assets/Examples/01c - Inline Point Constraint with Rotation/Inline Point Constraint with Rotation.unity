@@ -511,10 +511,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eed0981d1360d7408d409138fc2ba46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Beta: 0.2
+  Beta: 1
   Object: {fileID: 623197129}
   Target: {fileID: 1583501729}
-  Gravity: {x: 0, y: -9.8, z: 0}
+  Gravity: {x: 0, y: -20, z: 0}
 --- !u!4 &1606666736
 Transform:
   m_ObjectHideFlags: 0
