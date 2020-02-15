@@ -488,8 +488,8 @@ MonoBehaviour:
   m_centerOfMassLs: {x: 0, y: 0, z: 0}
   LinearVelocity: {x: 0, y: 0, z: 0}
   AngularVelocity: {x: 0, y: 0, z: 0}
-  LinearDrag: 0
-  AngularDrag: 0
+  LinearDrag: 0.25
+  AngularDrag: 0.25
   GravityScale: 1
   ContactBeta: 0.5
   Restitution: 0.7
