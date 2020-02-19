@@ -47,9 +47,9 @@ namespace PhysicsConstraints
       Vector3 bitangent;
       VectorUtil.FormOrthogonalBasis(Normal, out tangent, out bitangent);
 
-      m_jN.Init(this, Normal);
-      m_jT.Init(this, tangent);
-      m_jB.Init(this, bitangent);
+      m_jN.Init(this, Normal, dt);
+      m_jT.Init(this, tangent, dt);
+      m_jB.Init(this, bitangent, dt);
     }
 
     public void SolveVelocityConstraint(float dt)
@@ -75,6 +75,7 @@ namespace PhysicsConstraints
       private Vector3 m_wa; // Jacobian components for angular velocity of body A
       private Vector3 m_vb; // Jacobian components for linear velocity of body B
       private Vector3 m_wb; // Jacobian components for angular velocity of body B
+      private float m_bias;
       private float m_effectiveMass;
       private float m_totalLambda;
 
@@ -85,16 +86,31 @@ namespace PhysicsConstraints
         m_wa = Vector3.zero;
         m_vb = Vector3.zero;
         m_wb = Vector3.zero;
+        m_bias = 0.0f;
         m_effectiveMass = 0.0f;
         m_totalLambda = 0.0f;
       }
 
-      public void Init(Contact contact, Vector3 dir)
+      public void Init(Contact contact, Vector3 dir, float dt)
       {
         m_va = -dir;
         m_wa = -Vector3.Cross(contact.m_rA, dir);
         m_vb = dir;
         m_wb = Vector3.Cross(contact.m_rB, dir);
+
+        m_bias = 0.0f;
+        if (m_type == Type.Normal)
+        {
+          float beta = contact.BodyA.ContactBeta * contact.BodyB.ContactBeta;
+          float restitution = contact.BodyA.Restitution * contact.BodyB.Restitution;
+          Vector3 relativeVelocity =
+            -contact.BodyA.LinearVelocity
+            - Vector3.Cross(contact.BodyA.AngularVelocity, contact.m_rA)
+            + contact.BodyB.LinearVelocity
+            + Vector3.Cross(contact.BodyB.AngularVelocity, contact.m_rB);
+          float closingVelocity = Vector3.Dot(relativeVelocity, dir);
+          m_bias = -(beta / dt) * contact.Penetration + restitution * closingVelocity;
+        }
 
         float k = 
             contact.BodyA.InverseMass 
@@ -117,23 +133,8 @@ namespace PhysicsConstraints
           + Vector3.Dot(m_vb, contact.BodyB.LinearVelocity) 
           + Vector3.Dot(m_wb, contact.BodyB.AngularVelocity);
 
-        // b = bias
-        float b = 0.0f;
-        if (m_type == Type.Normal)
-        {
-          float beta = contact.BodyA.ContactBeta * contact.BodyB.ContactBeta;
-          float restitution = contact.BodyA.Restitution * contact.BodyB.Restitution;
-          Vector3 relativeVelocity = 
-            - contact.BodyA.LinearVelocity 
-            - Vector3.Cross(contact.BodyA.AngularVelocity, contact.m_rA) 
-            + contact.BodyB.LinearVelocity 
-            + Vector3.Cross(contact.BodyB.AngularVelocity, contact.m_rB);
-          float closingVelocity = Vector3.Dot(relativeVelocity, dir);
-          b = -(beta / dt) * contact.Penetration + restitution * closingVelocity;
-        }
-
         // raw lambda
-        float lambda = m_effectiveMass * (-(jv + b));
+        float lambda = m_effectiveMass * (-(jv + m_bias));
 
         // clamped lambda
         //   normal  / contact resolution  :  lambda >= 0
