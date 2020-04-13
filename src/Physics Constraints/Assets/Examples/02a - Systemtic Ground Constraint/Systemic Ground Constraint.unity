@@ -330,11 +330,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConstraintParams:
-    Mode: 1
+    Mode: 0
     FrequencyHz: 5
     DampingRatio: 0.5
     HalfLife: 0.02
   Restitution: 0.9
+  Offset: 0.5
   Plane: {fileID: 2077603453}
 --- !u!114 &1144492598
 MonoBehaviour:
@@ -351,6 +352,12 @@ MonoBehaviour:
   m_centerOfMassLs: {x: 0, y: 0, z: 0}
   LinearVelocity: {x: 0, y: 0, z: 0}
   AngularVelocity: {x: 0, y: 0, z: 0}
+  LinearDrag: 0
+  AngularDrag: 0
+  GravityScale: 1
+  ContactBeta: 1
+  Restitution: 0.7
+  Friction: 1
   LockPosition: 0
   LockRotation: 0
 --- !u!135 &1144492599
@@ -384,7 +391,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 855a078f0deb1bb41a13a45b9678892e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -521,7 +528,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cfbdfbc4dbd8f4f49893d20851db2c57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
