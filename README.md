@@ -5,7 +5,7 @@ by **Ming-Lun "Allen" Chou** / [AllenChou.net](http://AllenChou.net) / [@TheAlle
 
 A minimalistic educational constraint-based physics framework, accompanying a series of talks on physics constraints in games at Unity Frontier meetups in Taiwan on 02/06/2020, 02/14/2020, and 02/21/2020.
 
-### Re-recordings of the talks
+### Re-Recordings of The Talks
 
 #### English
   * Part 1 - Constraint Basics
