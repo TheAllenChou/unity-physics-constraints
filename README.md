@@ -8,7 +8,7 @@ A minimalistic educational constraint-based physics framework, accompanying a se
 ### Re-Recordings of The Talks
 
 #### English
-  * [Part 1 - Constraint Basics](https://youtu.be/MTVdBgQY9LY0
+  * [Part 1 - Constraint Basics](https://youtu.be/MTVdBgQY9LY)
   * Part 2 - Contact Constraints (WIP)
   * Part 3 - Soft Constraints (WIP)
 
