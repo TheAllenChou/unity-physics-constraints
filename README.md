@@ -16,3 +16,5 @@ A minimalistic educational constraint-based physics framework, accompanying a se
   * [Part 1 - 約束基礎](https://youtu.be/5zxaToMXidg)
   * Part 2 - 接觸約束 (WIP)
   * Part 3 - 軟性約束 (WIP)
+  
+If you like my tutorials, please consider supporting me on [Patreon](https://www.patreon.com/join/TheAllenChou)
