@@ -13,6 +13,6 @@ A minimalistic educational constraint-based physics framework, accompanying a se
   * Part 3 - Soft Constraints (WIP)
 
 #### 中文
-  * [Part 1 - 約束基礎] (https://youtu.be/5zxaToMXidg)
+  * [Part 1 - 約束基礎](https://youtu.be/5zxaToMXidg)
   * Part 2 - 接觸約束 (WIP)
   * Part 3 - 軟性約束 (WIP)
