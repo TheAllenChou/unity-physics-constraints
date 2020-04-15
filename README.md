@@ -1,7 +1,7 @@
 ## Unity Physics Constraints
 by **Ming-Lun "Allen" Chou** / [AllenChou.net](http://AllenChou.net) / [@TheAllenChou](http://twitter.com/TheAllenChou)  
 
-If you like my tutorials, please consider supporting me on [Patreon](https://www.patreon.com/join/TheAllenChou)
+If you like my tutorials, please consider supporting me on [Patreon](https://www.patreon.com/join/TheAllenChou).
 
 ![](/img/point-constraint-with-rotation.gif) ![](/img/contact-with-friction.gif)
 
