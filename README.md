@@ -11,10 +11,10 @@ A minimalistic educational constraint-based physics framework, accompanying a se
 
 #### English
   * [Part 1 - Constraint Basics](https://youtu.be/MTVdBgQY9LY)
-  * [Part 2 - Contact Constraints] (https://youtu.be/pmdYzNF9x34)
+  * [Part 2 - Contact Constraints](https://youtu.be/pmdYzNF9x34)
   * Part 3 - Soft Constraints (WIP)
 
 #### 中文
   * [Part 1 - 約束基礎](https://youtu.be/5zxaToMXidg)
-  * [Part 2 - 接觸約束] (https://youtu.be/a0aqbRt5nAo)
+  * [Part 2 - 接觸約束](https://youtu.be/a0aqbRt5nAo)
   * Part 3 - 軟性約束 (WIP)
