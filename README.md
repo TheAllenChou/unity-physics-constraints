@@ -12,9 +12,9 @@ If you like my tutorials, please consider supporting me on [Patreon](https://www
 #### English
   * [Part 1 - Constraint Basics](https://youtu.be/MTVdBgQY9LY)
   * [Part 2 - Contact Constraints](https://youtu.be/pmdYzNF9x34)
-  * Part 3 - Soft Constraints (WIP)
+  * [Part 3 - Soft Constraints](https://youtu.be/UUt4Lko2wFI)
 
 #### 中文
   * [Part 1 - 約束基礎](https://youtu.be/5zxaToMXidg)
   * [Part 2 - 接觸約束](https://youtu.be/a0aqbRt5nAo)
-  * Part 3 - 軟性約束 (WIP)
+  * [Part 3 - 軟性約束](https://youtu.be/6QuK-9fUKio)
