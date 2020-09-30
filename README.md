@@ -3,7 +3,7 @@ by **Ming-Lun "Allen" Chou** / [AllenChou.net](http://AllenChou.net) / [@TheAlle
 
 A minimalistic educational constraint-based physics framework, accompanying a series of talks on physics constraints in games at Unity Frontier meetups in Taiwan on 02/06/2020, 02/14/2020, and 02/21/2020.
 
-The examples are made with Unity, but the underlying math and phsyics are platform independent and can be applied anywhere.
+The examples are made with Unity, but the underlying math & phsyics are platform independent and can be applied anywhere.
 
 If you like my tutorials, please consider supporting me on [Patreon](https://www.patreon.com/join/TheAllenChou).
 
